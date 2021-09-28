@@ -8,9 +8,22 @@ import { api } from '../services/api';
 import { Loading } from '../components/Loading';
 import { Error } from '../components/Error';
 
+
+interface GetImagesResponse {
+  after: string;
+  data: []
+}
+
 export default function Home(): JSX.Element {
 
-  const fetchImages = ({ pageParam = null }) => api.get('/api/images' + pageParam)
+  async function fetchImages({ pageParam = null }): Promise<GetImagesResponse> {
+    const { data } = await api('/api/images', {
+      params: {
+        after: pageParam,
+      },
+    });
+    return data;
+  }
 
   const {
     data,
@@ -19,16 +32,19 @@ export default function Home(): JSX.Element {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery(
-    'images',
-    fetchImages, 
-    {
-      getNextPageParam: (after) => after
-    }
-  );
+  } = useInfiniteQuery('images', fetchImages, {
+    getNextPageParam: lastPage => lastPage?.after || null,
+  });
+
+  debugger
 
   const formattedData = useMemo(() => {
     // TODO FORMAT AND FLAT DATA ARRAY
+
+    const formartted = data?.pages.flatMap(it => it.data.flat()) 
+    console.log('data', formartted)
+    return formartted
+    
   }, [data]);
 
   // TODO RENDER LOADING SCREEN
