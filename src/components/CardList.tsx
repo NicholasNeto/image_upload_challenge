@@ -20,11 +20,6 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
   const [currentImageUrl, setCurrentImageUrl] = useState('');
 
-  // TODO MODAL USEDISCLOSURE
-
-
-  // TODO SELECTED IMAGE URL STATE
-
   // TODO FUNCTION HANDLE VIEW IMAGE
 
   function handleViewImage(url: string) {
@@ -42,7 +37,7 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
       {isOpen && <ModalViewImage
         isOpen={isOpen}
-        onClose={useDisclosure}
+        onClose={onClose}
         imgUrl={currentImageUrl}
       />}
     </>
