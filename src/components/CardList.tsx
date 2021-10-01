@@ -22,13 +22,23 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
   // TODO FUNCTION HANDLE VIEW IMAGE
 
+  function handleViewImage(url: string) {
+    console.log('url', url);
+  }
+
   return (
     <>
       <SimpleGrid columns={2} spacing={10}>
-          {cards.map(card => (<Card data={card} viewImage={() => "https://ibb.co/p422STm" }/>))}
+        {cards.map(card => (<Card data={card} viewImage={handleViewImage} />))}
       </SimpleGrid>
 
       {/* TODO MODALVIEWIMAGE */}
+
+      {<ModalViewImage
+        isOpen={true}
+        onClose={() => console.log('close')}
+        imgUrl={ }
+      />}
     </>
   );
 }
