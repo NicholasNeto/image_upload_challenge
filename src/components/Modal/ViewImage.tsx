@@ -18,7 +18,7 @@ export function ModalViewImage({
   isOpen,
   onClose,
   imgUrl,
-}: ModalViewImageProps): JSX.Element {
+}: ModalViewImageProps): JSX.Element {  
   // TODO MODAL WITH IMAGE AND EXTERNAL LINK
   return (
     <>
@@ -27,12 +27,9 @@ export function ModalViewImage({
         <ModalContent>
           <ModalBody>
             <Image
-              maxW={900}
-              maxH={600}
-              boxSize="100px"
-              objectFit="cover"
               src={imgUrl}
-              alt="Segun Adebayo"
+              maxW={['300px', '500px', '900px']}
+              maxH={['350px', '450px', '600px']}
             />
           </ModalBody>
           <ModalFooter></ModalFooter>
