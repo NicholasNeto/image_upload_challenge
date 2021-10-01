@@ -16,14 +16,20 @@ interface CardsProps {
 }
 
 export function CardList({ cards }: CardsProps): JSX.Element {
+  const { onOpen, isOpen, onClose } = useDisclosure();
+
+  const [currentImageUrl, setCurrentImageUrl] = useState('');
+
   // TODO MODAL USEDISCLOSURE
+
 
   // TODO SELECTED IMAGE URL STATE
 
   // TODO FUNCTION HANDLE VIEW IMAGE
 
   function handleViewImage(url: string) {
-    console.log('url', url);
+    onOpen()
+    setCurrentImageUrl(url)
   }
 
   return (
@@ -34,10 +40,10 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
       {/* TODO MODALVIEWIMAGE */}
 
-      {<ModalViewImage
-        isOpen={true}
-        onClose={() => console.log('close')}
-        imgUrl={ }
+      {isOpen && <ModalViewImage
+        isOpen={isOpen}
+        onClose={useDisclosure}
+        imgUrl={currentImageUrl}
       />}
     </>
   );
