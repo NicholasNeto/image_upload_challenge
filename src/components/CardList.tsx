@@ -20,8 +20,6 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
   const [currentImageUrl, setCurrentImageUrl] = useState('');
 
-  // TODO FUNCTION HANDLE VIEW IMAGE
-
   function handleViewImage(url: string) {
     onOpen()
     setCurrentImageUrl(url)
@@ -29,17 +27,17 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
   return (
     <>
-      <SimpleGrid columns={2} spacing={10}>
-        {cards.map(card => (<Card data={card} viewImage={handleViewImage} />))}
+      <SimpleGrid columns={[1, 2, 3]} spacing="40px">
+        {cards.map(card => (
+          <Card key={card.id} data={card} viewImage={handleViewImage} />
+        ))}
       </SimpleGrid>
 
-      {/* TODO MODALVIEWIMAGE */}
-
-      {isOpen && <ModalViewImage
+      <ModalViewImage
         isOpen={isOpen}
-        onClose={onClose}
         imgUrl={currentImageUrl}
-      />}
+        onClose={onClose}
+      />
     </>
   );
 }
