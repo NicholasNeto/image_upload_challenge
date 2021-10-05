@@ -20,9 +20,9 @@ export function CardList({ cards }: CardsProps): JSX.Element {
 
   const [currentImageUrl, setCurrentImageUrl] = useState('');
 
-  function handleViewImage(url: string) {
-    onOpen()
-    setCurrentImageUrl(url)
+  function handleViewImage(url: string): void {
+    onOpen();
+    setCurrentImageUrl(url);
   }
 
   return (
