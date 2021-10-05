@@ -22,7 +22,6 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
   const [localImageUrl, setLocalImageUrl] = useState('');
   const toast = useToast();
 
-
   const acceptedFormatsRegex =
     /(?:([^:/?#]+):)?(?:([^/?#]*))?([^?#](?:jpeg|gif|png))(?:\?([^#]*))?(?:#(.*))?/g;
 
@@ -46,14 +45,14 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
       maxLength: {
         value: 20,
         message: 'Máximo de 20 caracteres',
-      }
+      },
     },
     description: {
       required: 'Descrição obrigatória',
       maxLength: {
         value: 65,
         message: 'Máximo de 65 caracteres',
-      }
+      },
     },
   };
 
@@ -72,14 +71,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
     }
   );
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState,
-    setError,
-    trigger,
-  } = useForm();
+  const { register, handleSubmit, reset, formState, setError, trigger } =
+    useForm();
   const { errors } = formState;
 
   const onSubmit = async (data: NewImageData): Promise<void> => {
@@ -93,18 +86,23 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
         });
         return;
       }
-      await mutation.mutateAsync(data)
-
+      await mutation.mutateAsync(data);
       toast({
-        status: 'success',
         title: 'Imagem cadastrada',
-        description:
-          'Sua imagem foi cadastrada com sucesso.',
+        description: 'Sua imagem foi cadastrada com sucesso.',
+        status: 'success',
       });
     } catch {
-      // TODO SHOW ERROR TOAST IF SUBMIT FAILED
+      toast({
+        title: 'Falha no cadastro',
+        description: 'Ocorreu um erro ao tentar cadastrar a sua imagem.',
+        status: 'error',
+      });
     } finally {
-      // TODO CLEAN FORM, STATES AND CLOSE MODAL
+      reset();
+      setImageUrl('');
+      setLocalImageUrl('');
+      closeModal();
     }
   };
 
